@@ -1,58 +1,69 @@
 return {
 	"goolord/alpha-nvim",
-	lazy = true,
-	event = "VimEnter",
-	config = function()
-		local status_ok, alpha = pcall(require, "alpha")
-		if not status_ok then
-			return
-		end
+	dependencies = {
+		"echasnovski/mini.icons",
+	},
 
+	config = function()
+		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
+
 		dashboard.section.header.val = {
-			[[⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷]],
-			[[⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇]],
-			[[⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽]],
-			[[⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕⢕]],
-			[[⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱⢕]],
-			[[⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀⢕]],
-			[[⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗⢄]],
-			[[⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕⢕]],
-			[[⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵⣿]],
-			[[⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-			[[⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟]],
-			[[⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠]],
-			[[⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙]],
-			[[⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣]],
+			[[                              ]],
+			[[      ⢀⣠⣤⣶⣶⡞⡀⣤⣬⣴⠀⠀⢳⣶⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀]],
+			[[⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⡇⠀⢸⣿⠿⣿⡇⠀⠀⠸⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀]],
+			[[⠀⠀⢠⡾⣫⣿⣻⣿⣽⣿⡇⠀⠈⢿⣧⡝⠟⠀⠀⢸⣿⣿⣿⣿⣿⣟⢷⣄⠀⠀]],
+			[[⠀⢠⣯⡾⢿⣿⣿⡿⣿⣿⣿⣆⣠⣶⣿⣿⣷⣄⣰⣿⣿⣿⣿⣿⣿⣿⢷⣽⣄⠀]],
+			[[⢠⣿⢋⠴⠋⣽⠋⡸⢱⣯⡿⣿⠏⣡⣿⣽⡏⠹⣿⣿⣿⡎⢣⠙⢿⡙⠳⡙⢿⠄]],
+			[[⣰⢣⣃⠀⠊⠀⠀⠁⠘⠏⠁⠁⠸⣶⣿⡿⢿⡄⠈⠀⠁⠃⠈⠂⠀⠑⠠⣈⡈⣧]],
+			[[⡏⡘⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡥⢄⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⢸]],
+			[[⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣄⣸⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢨]],
+			[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈]],
+			[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡳⣶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 		}
 
 		dashboard.section.buttons.val = {
-			dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("r", "󰦛  Recently used files", ":Telescope oldfiles <CR>"),
-			dashboard.button("t", "󰊄  Find text", ":Telescope live_grep <CR>"),
-			dashboard.button("c", "  Configuration", ":e ~/.config/nvim/<CR>"),
-			dashboard.button("l", "󰒲  Lazy", ":Lazy<CR>"),
-			dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+			-- dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
+			dashboard.button("b", "λ  > Browse files", ":Yazi<CR>"),
+			dashboard.button("z", "λ  > Browse Directories", ":Telescope zoxide list<CR>"),
+			dashboard.button("f", "λ  > Find file", ":Telescope find_files<CR>"),
+			dashboard.button("r", "λ  > Recent", ":Telescope oldfiles<CR>"),
+			dashboard.button("q", "λ  > Exit", ":qa<CR>"),
 		}
+
+		dashboard.config.layout = {
+			{ type = "padding", val = 2 },
+			dashboard.section.header,
+			{ type = "padding", val = 2 },
+			dashboard.section.buttons,
+			{ type = "padding", val = 1 },
+			dashboard.section.footer,
+		}
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "AlphaReady",
+			callback = function()
+				vim.opt_local.fillchars = { eob = " " } -- Substitui o ~ por espaço vazio
+				vim.opt_local.laststatus = 0
+			end,
+		})
+
+		-- Garante que as linhas voltem ao normal ao sair do dashboard
+		vim.api.nvim_create_autocmd("BufUnload", {
+			buffer = 0,
+			callback = function()
+				vim.opt.fillchars = { eob = "~" }
+				vim.opt.laststatus = 3
+			end,
+		})
 
 		local function footer()
 			local version = vim.version()
-			return string.format(
-				"Neovim v%d.%d.%d • Don't Stop Until You are Proud...",
-				version.major,
-				version.minor,
-				version.patch
-			)
+			return string.format("Neovim v%d.%d.%d", version.major, version.minor, version.patch)
 		end
 
 		dashboard.section.footer.val = footer()
 
-		dashboard.section.footer.opts.hl = "Type"
-		dashboard.section.header.opts.hl = "Include"
-		dashboard.section.buttons.opts.hl = "Keyword"
-
-		dashboard.opts.opts.noautocmd = true
 		alpha.setup(dashboard.opts)
 	end,
 }
